@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <script>
+            function rokuCommand(command) {
+                url = $("#endpoint").val() + "/keypress/" + command
+                $.ajax({type: "POST", url: url, data: {} });
+            }
+            $(document).ready(function(){
+                const urlParams = new URLSearchParams(window.location.search);
+                const rokuEndpoint = urlParams.get('roku');
+                if (rokuEndpoint !== undefined) {
+                    $("#endpoint").val(rokuEndpoint);
+                }
+            });
+            $(document).keydown(function(e) {
+                switch(e.which) {
+                    case 37: rokuCommand('left')
+                    break;
+                    case 38: rokuCommand('up')
+                    break;
+                    case 39: rokuCommand('right')
+                    break;
+                    case 40: rokuCommand('down')
+                    break;
+                    case 73: rokuCommand('info')
+                    break;
+                    case 8: rokuCommand('back')
+                    break;
+                    case 72: rokuCommand('home')
+                    break;
+                    case 70: rokuCommand('fwd')
+                    break;
+                    case 82: rokuCommand('rev')
+                    break;
+                    case 13: rokuCommand('select')
+                    break;
+                    case 80: rokuCommand('enter')
+                    break;
+                    default: console.log(e.which); return;
+                }
+                e.preventDefault();
+            });
+            function enableDeveloper() {
+                setTimeout(function () {
+                    rokuCommand('home');
+                    setTimeout(function () {
+                        rokuCommand('home');
+                        setTimeout(function () {
+                            rokuCommand('home');
+                            setTimeout(function () {
+                                rokuCommand('up');
+                                setTimeout(function () {
+                                    rokuCommand('up');
+                                    setTimeout(function () {
+                                        rokuCommand('right');
+                                        setTimeout(function () {
+                                            rokuCommand('left');
+                                            setTimeout(function () {
+                                                rokuCommand('right');
+                                                setTimeout(function () {
+                                                    rokuCommand('left');
+                                                }, 500);
+                                            }, 500);
+                                        }, 500);
+                                    }, 500);
+                                }, 500);
+                            }, 500);
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }
+        </script>
+    </head>
+    <body>
+        roku commands: https://developer.roku.com/en-gb/docs/developer-program/discovery/external-control-api.md
+        <br />
+        file:///Users/vch11/Desktop/roku.html?roku=http://10.241.10.113:8060
+        <br />
+        <input id="endpoint" />
+        <br />
+        <button onclick="rokuCommand('left')">Left</button>
+        <br />
+        <button onclick="rokuCommand('right')">Right</button>
+        <br />
+        <button onclick="rokuCommand('up')">Up</button>
+        <br />
+        <button onclick="rokuCommand('down')">Down</button>
+        <br />
+        <button onclick="rokuCommand('home')">Home</button>
+        <br />
+        <button onclick="rokuCommand('fwd')">Fwd</button>
+        <br />
+        <button onclick="rokuCommand('rev')">Rev</button>
+        <br />
+        <button onclick="rokuCommand('back')">Back</button>
+        <br />
+        <button onclick="rokuCommand('info')">Info</button>
+        <br />
+        <button onclick="rokuCommand('select')">Select</button>
+        <br />
+        <button onclick="rokuCommand('play')">Play</button>
+        <br />
+        <button onclick="enableDeveloper()">Enable Developer</button>
+    </body>
+</html>
