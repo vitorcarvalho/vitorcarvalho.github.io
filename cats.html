@@ -1,0 +1,10 @@
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+setInterval(function(){
+ imagesrc = "http://thecatapi.com/api/images/get?time=" + (Math.random() * 9999)
+ $("#catimage").attr("src",imagesrc);
+}, 5000);
+</script>
+<div id="banner-message">
+  <img id="catimage" src="http://thecatapi.com/api/images/get?time=%201592240325924" />
+</div>
